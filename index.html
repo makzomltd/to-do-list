@@ -139,7 +139,7 @@ ul li::before{
     height: 28px;
     width: 28px;
     border-radius: 50%;
-    background-image: url(icons/unchecked.png);
+    background-image: url(unchecked.png);
     background-size: cover;
     background-position: center;
     top: 12px;
@@ -150,7 +150,7 @@ ul li.checked{
     text-decoration: line-through;
 }
 ul li.checked::before{
-background-image: url(icons/verified.png);
+background-image: url(verified.png);
 }
 ul li span{
     position: absolute;
@@ -180,7 +180,7 @@ ul li span:hover{
 <body>
    <div class="container">
        <div class="todo-app">
-          <h2>Tasks Schedule<img src="icons/clipboard.png"></h2>
+          <h2>Tasks Schedule<img src="clipboard.png"></h2>
           <div class="row"> 
             <input type="text" placeholder="Add your task" id="input-box">
             <button id="sub" onclick="addTask()">Add</button>
@@ -240,4 +240,5 @@ document.addEventListener("keydown",function(event){
 
     </script>
 </body>
+
 </html>
