@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dealy Tasks</title>
+    <style>
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins',sans-serif;
+    box-sizing: border-box;
+}
+.container{
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(110deg,#153677,#4e085f);
+    padding: 10px;
+}
+.todo-app{
+    width: 100%;
+    max-width: 540px;
+    background-color: #fff;
+    margin: 100px auto 20px;
+    padding: 40px 30px 70px;
+    border-radius: 10px;
+}
+.todo-app h2{
+    color: #002765;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.todo-app h2 img{
+width: 30px;
+margin-left: 10px;
+}
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #edeef0;
+    border-radius: 20px;
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+
+
+
+@media (max-width: 600px) {
+    .todo-app{
+    width: 100%;
+    max-width: 350px;
+    background-color: #fff;
+margin-top: 50px;
+    padding: 30px 20px 50px;
+    border-radius: 10px;
+}
+   .row{
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    background-color: #edeef0;
+    border-radius: 50px;
+    padding: 0px;/* it must change*/
+} 
+.row button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+background-color: #9d5ead;
+border: none;
+outline: none;
+width: 60px;
+height: 60px;
+font-size: 5px;
+padding: 0px 10px 0px 2px;
+border-radius: 50%;
+cursor: pointer;
+transition: all 0.2s ease-in;
+}
+.row button:hover{
+    background-color: #7d378f;
+    transform: scale(none);
+}
+.row input{
+    border: none;
+    outline: none;
+    margin: 0;
+    background-color: transparent;
+    padding: 1px 2px 3px 30px;
+    font-size: 12px;
+}
+
+
+
+}
+
+
+
+
+
+input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 18px;
+    font-weight: 14px;
+}
+.row button{
+background-color: #9d5ead;
+border: none;
+outline: none;
+padding: 16px 50px;
+font-size: 16px;
+border-radius: 40px;
+cursor: pointer;
+transition: all 0.2s ease-in;
+}
+.row button:hover{
+    background-color: #7d378f;
+    transform:scale(1.1);
+    
+}
+ul li{
+    list-style: none;
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+}
+ul li::before{
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    background-image: url(icons/unchecked.png);
+    background-size: cover;
+    background-position: center;
+    top: 12px;
+    left: 8px;
+}
+ul li.checked{
+    color: #555;
+    text-decoration: line-through;
+}
+ul li.checked::before{
+background-image: url(icons/verified.png);
+}
+ul li span{
+    position: absolute;
+    right: 0;
+   top: 12px;
+   width:40px ;
+   height: 40px;
+   font-size: 22px;
+   color: red;
+   line-height: 40px;
+   text-align: center;
+   cursor: pointer;
+   border-radius: 50%;
+   transition: all 0.3s ease;
+
+}
+ul li span:hover{
+    background-color: rgb(255, 246, 246);
+    transform: scale(1.3);
+    transform: rotate(180deg);
+    
+}
+
+
+    </style>
+</head>
+<body>
+   <div class="container">
+       <div class="todo-app">
+          <h2>Tasks Schedule<img src="icons/clipboard.png"></h2>
+          <div class="row"> 
+            <input type="text" placeholder="Add your task" id="input-box">
+            <button id="sub" onclick="addTask()">Add</button>
+          </div>
+          <ul id="list-container">
+           <!-- <li class="checked">Task 1</li>
+            <li>Task 1</li>
+            <li>Task 1</li>
+            -->
+          </ul>
+       </div>
+   </div>  
+
+    <script>
+   const inputBox=document.getElementById("input-box");
+   const listContainer=document.getElementById("list-container");
+   const sub=document.getElementById("sub");
+
+   function addTask(){
+    if(inputBox.value==''){
+        alert("you must write something ");
+    }
+    else{
+       let li=document.createElement("li");
+       li.innerHTML=inputBox.value;
+       listContainer.appendChild(li);
+       let span =document.createElement("span");
+       span.innerHTML="\u00d7 ";
+       li.appendChild(span);
+    }
+    inputBox.value='';
+     saveData();
+   }
+   listContainer.addEventListener("click",function(e){
+    if(e.target.tagName==="LI"){
+        e.target.classList.toggle("checked");
+         saveData();
+    }else if(e.target.tagName==="SPAN"){
+e.target.parentElement.remove();
+ saveData();
+    }
+   },false);
+   
+   function saveData(){
+    localStorage.setItem("data",listContainer.innerHTML);
+   }
+
+   function showTask(){
+    listContainer.innerHTML=localStorage.getItem("data");
+   }
+   showTask();
+document.addEventListener("keydown",function(event){
+    if(event.key==="Enter"){
+        sub.click();
+    }
+});
+
+    </script>
+</body>
+</html>
